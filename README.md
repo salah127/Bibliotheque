@@ -1,7 +1,7 @@
 # Bibliotheque
 
 
-## Concepts : Expliquez pourquoi l’authentification ne suffit pas pour sécuriser
+## Expliquez pourquoi l’authentification ne suffit pas pour sécuriser
 
 un endpoint et à quoi servent les permissions.
 L’authentification vérifie l’identité de l’utilisateur (qui es-tu ?).

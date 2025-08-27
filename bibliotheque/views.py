@@ -1,17 +1,30 @@
-
+from rest_framework.permissions import AllowAny
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Livre, Auteur
 from .serializers import LivreSerializer, AuteurSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+
+class ArticleListViewSet(viewsets.ViewSet):
+	permission_classes = [AllowAny]
+
+	def list(self, request):
+		# Exemple de réponse statique
+		articles = [
+			{"id": 1, "titre": "Article 1"},
+			{"id": 2, "titre": "Article 2"},
+		]
+		return Response(articles)
 
 class LivreViewSet(viewsets.ModelViewSet):
 	queryset = Livre.objects.all()
 	serializer_class = LivreSerializer
 	filter_backends = [filters.SearchFilter]
 	search_fields = ['titre']
-	permission_classes = [IsAuthenticated]
+	permission_classes = [IsAuthenticatedOrReadOnly]
 
 class AuteurViewSet(viewsets.ModelViewSet):
 	queryset = Auteur.objects.all()
