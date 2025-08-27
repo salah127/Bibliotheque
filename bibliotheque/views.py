@@ -1,5 +1,7 @@
 
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .models import Livre, Auteur
 from .serializers import LivreSerializer, AuteurSerializer
 
@@ -21,3 +23,9 @@ class AuteurViewSet(viewsets.ModelViewSet):
 			except ValueError:
 				pass
 		return queryset
+
+	@action(detail=True, methods=['get'])
+	def titres(self, request, pk=None):
+		auteur = self.get_object()
+		titres = list(auteur.livres.values_list('titre', flat=True))
+		return Response({'titres': titres})
